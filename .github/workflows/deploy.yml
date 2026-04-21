@@ -22,8 +22,10 @@ jobs:
           node-version: 18
 
       - name: Install and Build
+        # Hon nabbahna el-server ya'ti permission lal-scripts kermel ma ya'tik "Permission denied" mara tanya
         run: |
           npm install
+          chmod +x node_modules/.bin/react-scripts
           npm run build
         env:
           CI: false
