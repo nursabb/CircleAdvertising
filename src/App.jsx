@@ -86,17 +86,24 @@ const App = () => {
   };
 
   const images = {
-    logo: "img/logo.png",
-    hero: "/img/hero.jpg", 
+    logo: process.env.PUBLIC_URL + "/img/logo.png",
+    hero: process.env.PUBLIC_URL + "/img/hero.jpg", 
     services: [
-      "/img/service1.jpg",
-      "/img/service2.jpg",
-      "/img/service3.jpg"
+      process.env.PUBLIC_URL + "/img/service1.jpg",
+      process.env.PUBLIC_URL + "/img/service2.jpg",
+      process.env.PUBLIC_URL + "/img/service3.jpg"
     ],
     portfolio: [
-      "img/p1.jpg", "img/p2.jpg", "img/p3.jpg",
-      "img/p4.jpg", "img/p5.jpg", "img/p6.jpg",
-      "img/p7.jpg", "img/p8.jpg", "img/p9.jpg"
+      process.env.PUBLIC_URL + "/img/p1.jpg", 
+      process.env.PUBLIC_URL + "/img/p2.jpg",
+      process.env.PUBLIC_URL + "/img/p3.jpg",
+      process.env.PUBLIC_URL + "/img/p4.jpg",
+      process.env.PUBLIC_URL + "/img/p5.jpg",
+      process.env.PUBLIC_URL + "/img/p6.jpg",
+      process.env.PUBLIC_URL + "/img/p7.jpg",
+      process.env.PUBLIC_URL + "/img/p8.jpg",
+      process.env.PUBLIC_URL + "/img/p9.jpg",
+    
     ]
   };
 
