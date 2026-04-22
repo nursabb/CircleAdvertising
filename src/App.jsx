@@ -103,7 +103,6 @@ const App = () => {
       process.env.PUBLIC_URL + "/img/p7.jpg",
       process.env.PUBLIC_URL + "/img/p8.jpg",
       process.env.PUBLIC_URL + "/img/p9.jpg",
-    
     ]
   };
 
@@ -116,7 +115,6 @@ const App = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormStatus('sending');
-    // Simulate API call
     setTimeout(() => {
       setFormStatus('success');
       setFormData({ name: '', email: '', message: '' });
@@ -129,7 +127,30 @@ const App = () => {
   return (
     <div className={`min-h-screen bg-zinc-950 text-white selection:bg-red-600/30 ${lang === 'ar' ? 'rtl' : 'ltr'}`} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       
-      {/* Floating WhatsApp Button - FIXED */}
+      {/* Mobile Menu Overlay - FIXED FOR MOBILE VISIBILITY */}
+      <div className={`fixed inset-0 z-[100] bg-zinc-950 transition-transform duration-500 ${isMenuOpen ? 'translate-x-0' : (lang === 'ar' ? 'translate-x-full' : '-translate-x-full')}`}>
+        <div className="p-6 h-full flex flex-col">
+          <div className="flex justify-between items-center mb-12">
+            <span className="text-xl font-bold italic uppercase tracking-tighter">Circle</span>
+            <button onClick={() => setIsMenuOpen(false)} className="p-3 bg-white/5 rounded-full">
+              <X className="w-8 h-8" />
+            </button>
+          </div>
+          <div className="flex flex-col space-y-8 text-3xl font-bold uppercase italic">
+            {content[lang].nav.map((item, idx) => (
+              <a key={item} href={`#section-${idx}`} onClick={() => setIsMenuOpen(false)} className="hover:text-red-600 border-b border-white/5 pb-4">
+                {item}
+              </a>
+            ))}
+            <button onClick={() => { toggleLang(); setIsMenuOpen(false); }} className="flex items-center space-x-4 bg-white/5 p-6 rounded-2xl text-xl rtl:space-x-reverse">
+              <Globe className="w-6 h-6" />
+              <span>{lang === 'ar' ? 'English' : 'العربية'}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Floating WhatsApp Button */}
       <a 
         href="https://wa.me/96170000000" 
         target="_blank" 
@@ -154,7 +175,7 @@ const App = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 pb-20">
               {images.portfolio.map((img, idx) => (
                 <div key={idx} className="group relative overflow-hidden rounded-2xl aspect-[4/5] bg-zinc-900">
-                  <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={`Portfolio ${idx}`} />
+                  <img src={img} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={`Portfolio ${idx}`} />
                 </div>
               ))}
             </div>
@@ -167,7 +188,7 @@ const App = () => {
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <div className="flex items-center space-x-3 rtl:space-x-reverse">
             <div className="w-12 h-12 flex items-center justify-center">
-              <img src={images.logo} alt="Logo" className="w-full h-full object-contain" onError={(e) => { e.target.src = 'https://via.placeholder.com/150?text=Circle'; }} />
+              <img src={images.logo} alt="Logo" className="w-full h-full object-contain" />
             </div>
             <span className="text-xl font-bold tracking-tighter uppercase italic hidden sm:block">Circle Advertising</span>
           </div>
@@ -182,8 +203,8 @@ const App = () => {
             </button>
           </div>
 
-          <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X /> : <Menu />}
+          <button className="md:hidden p-2 bg-white/5 rounded-lg" onClick={() => setIsMenuOpen(true)}>
+            <Menu className="w-8 h-8" />
           </button>
         </div>
       </nav>
@@ -221,7 +242,7 @@ const App = () => {
                 </div>
                 <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
                 <p className="text-zinc-400 leading-relaxed mb-6">{service.desc}</p>
-                <img src={images.services[index]} className="w-full h-48 object-cover rounded-2xl grayscale group-hover:grayscale-0 transition-all" alt={service.title} />
+                <img src={images.services[index]} loading="lazy" className="w-full h-48 object-cover rounded-2xl grayscale group-hover:grayscale-0 transition-all" alt={service.title} />
               </div>
             ))}
           </div>
@@ -243,7 +264,7 @@ const App = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {images.portfolio.slice(0, 6).map((img, i) => (
               <div key={i} onClick={() => setSelectedGallery(true)} className="aspect-square overflow-hidden rounded-2xl bg-zinc-800 relative group cursor-pointer">
-                <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Work" />
+                <img src={img} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Work" />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                    <Maximize2 className="text-white w-8 h-8" />
                 </div>
@@ -253,7 +274,7 @@ const App = () => {
         </div>
       </section>
 
-      {/* Contact Section - "ERSAL TALAB" CHAGHALE */}
+      {/* Contact Section */}
       <section id="section-3" className="py-24 bg-zinc-900">
         <div className="max-w-7xl mx-auto px-6">
           <div className="bg-red-600 rounded-[3rem] p-10 md:p-20 relative overflow-hidden text-white">
