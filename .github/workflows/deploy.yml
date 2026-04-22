@@ -20,9 +20,12 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - name: Install and Build
+      - name: Install and Fix Permissions
         run: |
           npm install
+          chmod +x node_modules/.bin/react-scripts
+      - name: Build
+        run: |
           CI=false npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
